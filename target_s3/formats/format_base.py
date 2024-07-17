@@ -31,7 +31,7 @@ class FormatBase(metaclass=ABCMeta):
 
     """This is the object type base class"""
 
-    def __init__(self, config: dict, context: dict) -> None:
+    def __init__(self, config: dict, context: dict, extension: str) -> None:
         # TODO: perhaps we should do some scrubbing here?
         self.config = config
 
@@ -44,8 +44,9 @@ class FormatBase(metaclass=ABCMeta):
         ), "FormatBase.__init__: Expecting cloud provider in configuration"
 
         self.context = context
+        self.extension = extension
         #Read the compression type from the config
-        self.compression = config.get("compression", "none")
+        self.compression = config.get("compression", None)
 
         self.stream_name_path_override = config.get("stream_name_path_override", None)
 
@@ -124,7 +125,7 @@ class FormatBase(metaclass=ABCMeta):
             grain = DATE_GRAIN[self.config["append_date_to_filename_grain"].lower()]
             file_name += f"{self.create_file_structure(batch_start, grain)}"
 
-        return f"{folder_path}{file_name}.{self.compression}"
+        return f"{folder_path}{file_name}.{self.extension}.{self.compression}"
 
     def create_folder_structure(
         self, batch_start: datetime, grain: int, partition_name_enabled: bool
