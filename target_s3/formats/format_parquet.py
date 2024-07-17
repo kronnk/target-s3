@@ -394,7 +394,7 @@ class FormatParquet(FormatBase):
         df = self.create_dataframe()
         try:
             ParquetWriter(
-                f"{self.fully_qualified_key}.{self.extension}",
+                f"{self.fully_qualified_key}",
                 df.schema,
                 compression=self.compression,
                 filesystem=self.file_system,
