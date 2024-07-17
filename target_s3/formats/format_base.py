@@ -20,7 +20,6 @@ DATE_GRAIN = {
     "second": 2,
     "microsecond": 1,
 }
-COMPRESSION = {}
 
 
 def format_type_factory(object_type_class, *pargs, **kargs):
@@ -46,7 +45,8 @@ class FormatBase(metaclass=ABCMeta):
 
         self.context = context
         self.extension = extension
-        self.compression = "gz"  # TODO: need a list of compatible compression types
+        #Read the compression type from the config
+        self.compression = config.get("compression", None)
 
         self.stream_name_path_override = config.get("stream_name_path_override", None)
 
