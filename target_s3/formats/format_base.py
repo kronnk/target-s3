@@ -124,8 +124,11 @@ class FormatBase(metaclass=ABCMeta):
         if self.config["append_date_to_filename"]:
             grain = DATE_GRAIN[self.config["append_date_to_filename_grain"].lower()]
             file_name += f"{self.create_file_structure(batch_start, grain)}"
-
-        return f"{folder_path}{file_name}.{self.extension}.{self.compression}"
+        #Avoids none in filename
+        if self.compression == "none":
+            return f"{folder_path}{file_name}.{self.extension}"
+        else:
+            return f"{folder_path}{file_name}.{self.compression}.{self.extension}"
 
     def create_folder_structure(
         self, batch_start: datetime, grain: int, partition_name_enabled: bool
