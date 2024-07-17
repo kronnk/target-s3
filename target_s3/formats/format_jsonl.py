@@ -18,7 +18,7 @@ class JsonSerialize(JSONEncoder):
 
 class FormatJsonl(FormatBase):
     def __init__(self, config, context) -> None:
-        super().__init__(config, context, "jsonl")
+        super().__init__(config, context)
         pass
 
     def _prepare_records(self):

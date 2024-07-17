@@ -72,7 +72,14 @@ class Targets3(Target):
             th.StringType,
             description="The compression type to use.",
             required=False,
-            allowed_values=["none", "gzip", "snappy","brotli","lz4", "zstd"],
+            allowed_values=[
+                "none",
+                "gzip",
+                "snappy",
+                "brotli",
+                "lz4",
+                "zstd"
+                ],
             default="none",
         ),
         th.Property(

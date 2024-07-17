@@ -10,7 +10,7 @@ from target_s3.formats.format_base import FormatBase
 
 class FormatParquet(FormatBase):
     def __init__(self, config, context) -> None:
-        super().__init__(config, context, "parquet")
+        super().__init__(config, context)
         cloud_provider_config = config.get("cloud_provider", None)
         cloud_provider_config_type = cloud_provider_config.get(
             "cloud_provider_type", None
@@ -394,7 +394,7 @@ class FormatParquet(FormatBase):
         df = self.create_dataframe()
         try:
             ParquetWriter(
-                f"{self.fully_qualified_key}.{self.extension}",
+                f"{self.fully_qualified_key}",
                 df.schema,
                 compression=self.compression,
                 filesystem=self.file_system,
